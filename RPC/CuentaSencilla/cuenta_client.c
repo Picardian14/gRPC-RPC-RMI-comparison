@@ -64,10 +64,13 @@ main (int argc, char *argv[])
 	double times;
 	
 	clock_t start_t, end_t;
-	start_t = clock();
+	struct timespec begin, end;
+	clock_gettime(CLOCK_REALTIME, &begin);
 	cuenta_1 (host, 1, 1, operation);
-	end_t = clock();
-	times = (double) ((end_t - start_t) * 1000) / CLOCKS_PER_SEC;				
-	printf("%f\n", times);
+	clock_gettime(CLOCK_REALTIME, &end);
+	long seconds = end.tv_sec - begin.tv_sec;
+	long nanoseconds = end.tv_nsec - begin.tv_nsec;
+	double elapsed = seconds + nanoseconds*1e-9;
+	printf("%f\n", elapsed);
 	exit (0);
 }
