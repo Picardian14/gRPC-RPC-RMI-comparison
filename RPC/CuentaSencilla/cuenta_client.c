@@ -61,23 +61,13 @@ main (int argc, char *argv[])
 		printf("Wrong operation. Just sum and dif. Got %s\n", operation );		
 		exit (1);
 	}	
-	double times[256];
-	double mean=0;
-	clock_t start_t, end_t;
-	for (int i=0;i < 256;i++){
-		start_t = clock();
-		cuenta_1 (host, i, i, operation);
-		end_t = clock();
-		times[i] = (double) ((end_t - start_t) * 1000) / CLOCKS_PER_SEC;
-		mean+=times[i];
-	}
-	mean/=256;
-	double std=0;
-	for (int i=0;i < 256;i++){
-		std = std + pow((times[i] - mean), 2);
-	}
-	std/=256;
+	double times;
 	
-	printf("%f %f\n", mean, std);
+	clock_t start_t, end_t;
+	start_t = clock();
+	cuenta_1 (host, 1, 1, operation);
+	end_t = clock();
+	times = (double) ((end_t - start_t) * 1000) / CLOCKS_PER_SEC;				
+	printf("%f\n", times);
 	exit (0);
 }
