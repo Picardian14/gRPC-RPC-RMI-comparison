@@ -1,0 +1,22 @@
+Para Java El procedimiento también es sencillo, pero están los problemas que vienen con Java para hacerlo. No es tan claro cómo funciona por debajo la conexión.
+
+En RPC es muy similar, pero uno genera el código que va a hacer el transporte. Aunque no se pueda entender todo es accesible y puede leerse si se desea. 
+
+
+para golang tambien hay setup
+tenes que tener una carpeta go donde se van a isntalar las librerias
+y otra libreria donde vas a hacer tu codigo, porque si no es un lio
+en el gopath pones ambas, primero la carpeta go y despues la de tus librerias
+y en ambas haces un src pkg y bin carpetas
+
+Cuando vayas a hacer codigo tenes que crear una carpeta donde vayas a hacer ese experimento o proyecto en particular, desde src. Por ejemplo, crear la carpeta "protobuftest" en src y trabajar desde ahi
+Si haces un .proto en ahí podes poner el import 
+
+
+
+
+
+Tomé los tiempos de CuentaSencilla mandando distinta cantidad de mensajes (Uno detrás de otro)
+
+	gRPC media  grpc     RPC
+2048    0.1249
