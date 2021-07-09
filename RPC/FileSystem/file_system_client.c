@@ -1,6 +1,7 @@
 #include "file_system.h"
 #include "stdio.h"
 #include "string.h"
+#include "time.h"
 
 int rcv_file(read_data read_arg, char* destiny, CLIENT* clnt) {
 
@@ -13,6 +14,8 @@ int rcv_file(read_data read_arg, char* destiny, CLIENT* clnt) {
 	} else {
 		FILE* fp = fopen(destiny, "w");
 		fwrite(result->data.data_val, sizeof(char), result->data.data_len, fp);
+		struct timespec begin, end;
+		clock_gettime(CLOCK_REALTIME,&begin);
 		if(!result->finished) {
 			while(!result->finished) {
 				read_arg.pos = read_arg.pos + result->data.data_len;
@@ -20,6 +23,16 @@ int rcv_file(read_data read_arg, char* destiny, CLIENT* clnt) {
 				fwrite(result->data.data_val, sizeof(char), result->data.data_len, fp);
 			}
 		}
+		clock_gettime(CLOCK_REALTIME,&end);
+		long seconds = end.tv_sec - begin.tv_sec;
+		long nanoseconds = end.tv_nsec - begin.tv_nsec;
+		double elapsed = seconds + nanoseconds*1e-9;
+		char * logfilename = "TiemposFSRemotoLectura.txt";
+		FILE *logfp = fopen(logfilename, "w");
+		if (fp == NULL)
+			printf("Error writing log times");
+		fprintf(logfp, "%f\n", elapsed);
+		fclose(logfp);
 		fclose(fp);
 		return 0;
 	}
@@ -33,6 +46,8 @@ int send_file(write_data write_arg, char* source, CLIENT* clnt) {
 	int bytes_to_send = 1024;
 
 	if(fp) {
+		struct timespec begin, end;
+		clock_gettime(CLOCK_REALTIME,&begin);
 		while(!feof(fp)){
 			write_arg.data.data_len = fread(write_arg.data.data_val, sizeof(char), bytes_to_send, fp);
 			
@@ -45,6 +60,16 @@ int send_file(write_data write_arg, char* source, CLIENT* clnt) {
 				result += *bytes_written;
 			}
 		}
+		clock_gettime(CLOCK_REALTIME,&end);
+		long seconds = end.tv_sec - begin.tv_sec;
+		long nanoseconds = end.tv_nsec - begin.tv_nsec;
+		double elapsed = seconds + nanoseconds*1e-9;
+		char * logfilename = "TiemposFSRemotoEscritura.txt";
+		FILE *logfp = fopen(logfilename, "w");
+		if (fp == NULL)
+			printf("Error writing log times");
+		fprintf(logfp, "%f\n", elapsed);
+		fclose(logfp);
 		fclose(fp);
 	} else {
 		result = -1;
