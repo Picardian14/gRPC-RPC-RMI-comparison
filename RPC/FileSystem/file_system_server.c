@@ -17,7 +17,7 @@ int* write_1_svc(write_data *argp, struct svc_req *rqstp) {
 
 	FILE* fp = fopen(address, "a");
 	if(fp) {
-		printf("Se escribieron %d bytes en el archivo: '%s'\n",argp->data.data_len,address);
+		//printf("Se escribieron %d bytes en el archivo: '%s'\n",argp->data.data_len,address);
 		fwrite(argp->data.data_val, argp->data.data_len, sizeof(char), fp);
 	} else {
 		printf("Error tratando de escribir a archivo: '%s'\n",address);
@@ -49,7 +49,7 @@ file_data* read_1_svc(read_data *argp, struct svc_req *rqstp) {
 
 		result.finished = (ftell(fp) <= (result.data.data_len + argp->pos)) ? 1 : 0;
 
-		printf("Se leyeron %d bytes de: '%s', desde la posicion %d \n",result.data.data_len,address,argp->pos);
+		//printf("Se leyeron %d bytes de: '%s', desde la posicion %d \n",result.data.data_len,address,argp->pos);
 	} else {
 		printf("Error tratando de abrir archivo inexistente: '%s'\n",address);
 		result.error = 1;

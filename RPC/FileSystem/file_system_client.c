@@ -128,7 +128,7 @@ void file_system_1(char *host) {
 				printf("Faltan parametros, usar: 'send file_name [source]'\n");
 			} else bytes_written = send_file(write_arg,source,clnt);
 
-			if(bytes_written != -1) {
+			if(bytes_written == -1) {
 				printf("Se enviaron %d bytes\n",bytes_written);
 			} else {
 				printf("No se pudo enviar el archivo\n");
