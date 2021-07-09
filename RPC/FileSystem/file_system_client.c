@@ -28,7 +28,7 @@ int rcv_file(read_data read_arg, char* destiny, CLIENT* clnt) {
 		long nanoseconds = end.tv_nsec - begin.tv_nsec;
 		double elapsed = seconds + nanoseconds*1e-9;
 		char * logfilename = "TiemposFSRemotoLectura.txt";
-		FILE *logfp = fopen(logfilename, "w");
+		FILE *logfp = fopen(logfilename, "a");
 		if (fp == NULL)
 			printf("Error writing log times");
 		fprintf(logfp, "%f\n", elapsed);
@@ -65,7 +65,7 @@ int send_file(write_data write_arg, char* source, CLIENT* clnt) {
 		long nanoseconds = end.tv_nsec - begin.tv_nsec;
 		double elapsed = seconds + nanoseconds*1e-9;
 		char * logfilename = "TiemposFSRemotoEscritura.txt";
-		FILE *logfp = fopen(logfilename, "w");
+		FILE *logfp = fopen(logfilename, "a");
 		if (fp == NULL)
 			printf("Error writing log times");
 		fprintf(logfp, "%f\n", elapsed);
