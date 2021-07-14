@@ -63,6 +63,7 @@ int send_file(write_data write_arg, char* source, CLIENT* clnt) {
 			seconds = end.tv_sec - begin.tv_sec;
 			nanoseconds = end.tv_nsec - begin.tv_nsec;
 			elapsed = seconds + nanoseconds*1e-9;
+			fprintf(logfp, "%f\n", elapsed);
 			if (bytes_written == (int *) NULL) {
 				clnt_perror(clnt, "call failed");
 			} else {
@@ -71,7 +72,7 @@ int send_file(write_data write_arg, char* source, CLIENT* clnt) {
 		}
 		
 		
-		fprintf(logfp, "%f\n", elapsed);
+		
 		fclose(logfp);
 		fclose(fp);
 	} else {
