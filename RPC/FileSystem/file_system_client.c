@@ -47,27 +47,30 @@ int send_file(write_data write_arg, char* source, CLIENT* clnt) {
 
 	if(fp) {
 		struct timespec begin, end;
-		clock_gettime(CLOCK_REALTIME,&begin);
+		char * logfilename = "TiemposPorRPC.txt";
+		FILE *logfp = fopen(logfilename, "a");
+		if (fp == NULL)
+			printf("Error writing log times");
+		long seconds, nanoseconds;
+		double elapsed;
 		while(!feof(fp)){
 			write_arg.data.data_len = fread(write_arg.data.data_val, sizeof(char), bytes_to_send, fp);
 			
 			int* bytes_written;
+			clock_gettime(CLOCK_REALTIME,&begin);
 			bytes_written = write_1(&write_arg, clnt);
-
+			clock_gettime(CLOCK_REALTIME,&end);
+			seconds = end.tv_sec - begin.tv_sec;
+			nanoseconds = end.tv_nsec - begin.tv_nsec;
+			elapsed = seconds + nanoseconds*1e-9;
 			if (bytes_written == (int *) NULL) {
 				clnt_perror(clnt, "call failed");
 			} else {
 				result += *bytes_written;
 			}
 		}
-		clock_gettime(CLOCK_REALTIME,&end);
-		long seconds = end.tv_sec - begin.tv_sec;
-		long nanoseconds = end.tv_nsec - begin.tv_nsec;
-		double elapsed = seconds + nanoseconds*1e-9;
-		char * logfilename = "TiemposFSRemotoEscritura.txt";
-		FILE *logfp = fopen(logfilename, "a");
-		if (fp == NULL)
-			printf("Error writing log times");
+		
+		
 		fprintf(logfp, "%f\n", elapsed);
 		fclose(logfp);
 		fclose(fp);
