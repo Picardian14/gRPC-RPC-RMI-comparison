@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package protos;
+option java_package = "com.distribuidos.grpc";
+option java_multiple_files = true;
+option go_package = "github.com/picardian14/distribuidos/raiznewton";
+
+service NewtonCalculator {
+    rpc RootMethod(IntRootRequest) returns (stream RootResponse) {}
+}
+
+message IntRootRequest {
+    int32 requested_root = 1;
+    float precision = 2;
+}
+
+message RootResponse {
+    float root = 1;
+    float delta = 2;
+}
