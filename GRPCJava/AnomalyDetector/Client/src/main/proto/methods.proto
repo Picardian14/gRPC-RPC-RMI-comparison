@@ -1,0 +1,17 @@
+syntax = "proto3";
+package protos;
+option go_package = "github.com/picardian14/distribuidos/anomalydetector";
+option java_package = "anomalydetector";
+option java_multiple_files = true;
+
+service AnomalyDetector {
+    rpc DetectAnomaly(stream SingleAnomalyRequest) returns (AnomalyResponse) {}
+}
+
+message SingleAnomalyRequest {
+    double sample = 1;
+}
+
+message AnomalyResponse {
+    repeated double anomalous_values = 1;
+}
