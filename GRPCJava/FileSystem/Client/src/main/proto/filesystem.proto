@@ -1,0 +1,28 @@
+syntax="proto3";
+
+package proto;
+option go_package =  "github.com/picardian14/distribuidos/filesystem";
+option java_package = "filesystem.grpc";
+option java_multiple_files = true;
+
+
+service FileSystem {
+    rpc Write(stream Chunk) returns (Response) {}
+}
+
+message Response {
+    string status = 1;
+    int32 bytes_read = 2;
+}
+
+message Chunk {
+    oneof data {
+        MetaInfo meta = 1;
+        bytes content = 2;
+    }
+}
+
+message MetaInfo {
+    string name = 1;
+    string type = 2;
+}
