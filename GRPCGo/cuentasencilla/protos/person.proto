@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "github.com/picardian14/distribuidos/cuentasencilla";
+
+
+
+service Administrator {
+	rpc sum (Operands) returns (APIResponse) {}
+	rpc subs (Operands) returns (APIResponse) {}
+}
+
+message APIResponse {
+	int32 response = 1;
+}
+
+message Operands {
+	int32 X = 1;
+	int32 Y = 2;
+}

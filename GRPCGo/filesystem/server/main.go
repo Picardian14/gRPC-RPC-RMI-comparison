@@ -27,7 +27,7 @@ func (s Server) Write(stream pb.FileSystem_WriteServer) error {
 	for {
 		req, err := stream.Recv()
 		if err == io.EOF {
-			log.Println("Done receiving")
+			//log.Println("Done receiving")
 			break
 		}
 		if err != nil {
@@ -37,7 +37,7 @@ func (s Server) Write(stream pb.FileSystem_WriteServer) error {
 		}
 		chunk := req.GetContent()
 		bytesRead := len(chunk)
-		log.Printf("Received %d bytes\n", bytesRead)
+
 		fileSize += bytesRead
 		_, writeErr := fileData.Write(chunk)
 		if writeErr != nil {
