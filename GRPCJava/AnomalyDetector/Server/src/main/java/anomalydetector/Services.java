@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class Services extends AnomalyDetectorGrpc.AnomalyDetectorImplBase {
     @Override
     public StreamObserver<SingleAnomalyRequest> detectAnomaly(final StreamObserver<AnomalyResponse> responseObserver) {
+        System.out.println("Llamado");
         return new StreamObserver<SingleAnomalyRequest>(){
             java.util.ArrayList<Double> anomalies = new ArrayList<Double>();
 
