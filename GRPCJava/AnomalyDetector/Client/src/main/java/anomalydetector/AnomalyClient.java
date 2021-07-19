@@ -33,7 +33,9 @@ public class AnomalyClient {
                    System.out.println("Finished serving");
                    finishLatch.countDown();
                }
+
            };
+           
            StreamObserver<SingleAnomalyRequest> requestObserver = stub.detectAnomaly(responseObserver);
            try {
                List<Double> samples = List.of(1.1,1.1,1.1,1.1,1.1,1.1,1.4,1.5);
