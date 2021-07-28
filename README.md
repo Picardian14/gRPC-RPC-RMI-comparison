@@ -14,7 +14,8 @@ Sends data to the server with a stream, and receives the anomalies percieved by 
 ### "MaxUpdater"
 This sends a stream of numbers to the server and receives the max number sent on real time. It concurrently sends and receives data on both end via a bidirectional stream.
 
-### "FileSystem"
+### "FileSystem" | "FileServer"
 Sends a file to a server with a stream.
 
 RPC and RMI only have the first and the last examples. These also have code to measure time to execute each remote call on different ways.
+On all cases "CuentaSencilla" and "FileSystem" were implemented to execute on different computers on the same Wi-Fi, so it will try to send to a private IP.
